@@ -1,0 +1,121 @@
+{
+  "name": "nikitha's project",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a58ed687-f4ff-4b8d-876a-c4260993854f",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14CBDveLqT0oHhOsP6DB_3e3b3kVAFbOgHKnc8yLKMkE",
+          "mode": "list",
+          "cachedResultName": "nikitha n8n data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14CBDveLqT0oHhOsP6DB_3e3b3kVAFbOgHKnc8yLKMkE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14CBDveLqT0oHhOsP6DB_3e3b3kVAFbOgHKnc8yLKMkE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "437666d9-6e03-4f19-93c7-4ee9067fe9e8",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gNO1usMkZgYU3T41",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer BbS5q9oEnU4dcjA8NLm67lAhq9p6fIQa"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"to\":\"{{ $json.num }}\",\n  \"body\":\"{{ $json.message }} {{ $json.name }} mi number idhena {{ $json.num }}\" \n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "82657834-3fae-4ad3-90ac-eaa2c6f1a55a",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d835cdbe-8e80-4ad1-93fb-184b2472900b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "826bf7f5a0fea4a4df4c713a8814821f990b5e38f50a13d789ff8a308bf7fe80"
+  },
+  "id": "3hZFj1rrRE37PRQx",
+  "tags": []
+}

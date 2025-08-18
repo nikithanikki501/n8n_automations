@@ -1,0 +1,31 @@
+HOW TO OPEN THIS PROJECT IN N8N -> OPEN N8N AND CLICK  + SYMBOL , CLICK 3 DOTS AT RIGHT CORNER AND SELECT IMPORT FROM FILES. SELECT THAT PROJECT FILE (WHICH IS SAVED IN AUTOMATION PROJECTS.) 
+
+
+--------------------------- PROJECT -------------------------------
+This project is an automated WhatsApp messaging system.
+Every 20 seconds it checks a Google Sheet, takes contact details and a custom message, and sends out personalized WhatsApp texts through an API.
+
+
+
+Workflow Steps
+
+1.Schedule Trigger
+
+Runs automatically every 20 seconds.
+
+2.Google Sheets Integration
+
+Reads rows from a connected Google Sheet named Sheet1 in the document nikitha n8n data.
+
+The sheet contains details like phone numbers (num), names, and messages.
+
+3.HTTP Request (WhatsApp API)
+
+For each row, it sends a WhatsApp message using the Whapi.cloud API.
+
+The message format is:
+
+{{message}} {{name}} mi number idhena {{num}}
+
+
+Example: "Hello Nikki mi number idhena 9876543210"

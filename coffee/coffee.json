@@ -1,0 +1,277 @@
+{
+  "name": "coffee",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Order your cofffee",
+        "formDescription": "Your coffee will be ready in 5 min",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "enter ur name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "coffee",
+              "placeholder": "enter your coffee",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "enter your email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "is ready",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "yes"
+                  },
+                  {
+                    "option": "no"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e20a2afe-6abf-49cc-b7da-723eedd32db4",
+      "name": "On form submission",
+      "webhookId": "be91741d-9489-4ab7-93e3-eda3e8896267"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM",
+          "mode": "list",
+          "cachedResultName": "coffee dashboard",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "submittedAt": "={{ $json.submittedAt }}",
+            "formMode": "={{ $json.formMode }}",
+            "completed": "={{ $json['is ready'] }}",
+            "coffee": "={{ $json.coffee }}",
+            "Email": "={{ $json.Email }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "coffee",
+              "displayName": "coffee",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submittedAt",
+              "displayName": "submittedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "formMode",
+              "displayName": "formMode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "completed",
+              "displayName": "completed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        0
+      ],
+      "id": "7b6f9754-c687-4e59-93b5-810c46a3438b",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "85lOghNFzKttcG1k",
+          "name": "coffee dashboard"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM",
+          "mode": "list",
+          "cachedResultName": "coffee dashboard",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FlDeHSVYgbJSTR8Ke0EABIFF4Maj0x4WV3dYZQcbvdM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "completed",
+              "lookupValue": "yes"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        0
+      ],
+      "id": "8eb2a364-d05c-4ffe-8529-e45407046054",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "85lOghNFzKttcG1k",
+          "name": "coffee dashboard"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Coffee Ready!!",
+        "message": "=Hii  {{ $json.Name }} your {{ $json.coffee }} is ready!!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        0
+      ],
+      "id": "332666d5-09e5-4872-ac2a-d799993c1d6c",
+      "name": "Send a message",
+      "webhookId": "64c951d4-6b28-4239-b41c-6683318f1393",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "V8DaMrRcA6VQNHnU",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a50c8fa6-eacb-42c5-a26c-a87efef90e18",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "826bf7f5a0fea4a4df4c713a8814821f990b5e38f50a13d789ff8a308bf7fe80"
+  },
+  "id": "ytD0M7PWgTaQmbaN",
+  "tags": []
+}

@@ -1,0 +1,3 @@
+
+--------------------------- PROJECT -------------------------------
+Whenever a new/updated order is added to your Google Sheet, this workflow auto-generates a professional email about that order and sends it out through Gmail.

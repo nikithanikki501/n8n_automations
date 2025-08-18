@@ -1,0 +1,178 @@
+{
+  "name": "email of updated rows",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Jz0Yz_5P5cKMO7c6YjUjNk3_u2x9GPUt8skrGide6Rk",
+          "mode": "list",
+          "cachedResultName": "orders_example",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Jz0Yz_5P5cKMO7c6YjUjNk3_u2x9GPUt8skrGide6Rk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1536387060,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Jz0Yz_5P5cKMO7c6YjUjNk3_u2x9GPUt8skrGide6Rk/edit#gid=1536387060"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7d851df1-4dec-4c9a-a39c-3b0b05e661d6",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "VqGMLQ2ki46WwbBK",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "write an email",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a helpful and intilegent assistant who writes the best emails with the information provided\norderid:{{ $json.OrderID }}\nname:{{ $json.Name }}\nproduct:{{ $json.Product }}\nquantity:{{ $json.Quantity }}\nprice:{{ $json.Price }}\norderstatus:{{ $json['Order Status'] }}\ncompany name should me dinesh logistics.\ndont include **"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "170895da-a91f-420a-978b-32485ef91e8d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        96,
+        272
+      ],
+      "id": "9aec2718-0efe-441e-ba8a-665b88ca2ebf",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "JVbtP095mWyG5phV",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"subject\": \"\",\n\t\"body\": \"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        272
+      ],
+      "id": "23650ddb-c982-4a80-86db-e6bbf51961f8",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "sendTo": "dineshpilla26@gmail.com",
+        "subject": "={{ $json.output.subject }}",
+        "message": "={{ $json.output.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "0e55da0d-2928-496a-b26a-6435e1af2788",
+      "name": "Send a message",
+      "webhookId": "8877254c-1a8d-4ff9-b762-4b53df73f61c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "V8DaMrRcA6VQNHnU",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "42989d63-a361-454e-b4f3-9ee2ebfc4380",
+  "meta": {
+    "instanceId": "826bf7f5a0fea4a4df4c713a8814821f990b5e38f50a13d789ff8a308bf7fe80"
+  },
+  "id": "NlZ8Dict158kOtqv",
+  "tags": []
+}

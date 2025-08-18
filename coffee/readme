@@ -1,0 +1,32 @@
+
+--------------------------- PROJECT -------------------------------
+This project =
+“Whenever an order row is updated in Google Sheets → AI writes a custom order email → Email is sent via Gmail automatically.”
+
+Step-by-step process:
+
+1.Google Sheets Trigger
+
+Watches a specific Google Sheet (orders_example → Sheet1) for updates (polls every minute).
+
+2.AI Agent (LangChain + Groq model)
+
+Takes the updated row data (OrderID, Name, Product, Quantity, Price, Order Status).
+
+Generates a professional email using AI (Groq LLM) with "Dinesh Logistics" as the company name.
+
+3.Structured Output Parser
+
+Ensures the AI’s response is structured into two fields:
+
+subject (email subject)
+
+body (email body)
+
+4.Gmail Node
+
+Sends the generated email to dineshpilla26@gmail.com.
+
+Subject = AI’s generated subject
+
+Body = AI’s generated body
